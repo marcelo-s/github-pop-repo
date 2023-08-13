@@ -9,6 +9,8 @@ public record Items(
         String name,
         @JsonProperty("description")
         String description,
+        @JsonProperty("language")
+        String language,
         @JsonProperty("html_url")
         String htmlUrl,
         @JsonProperty("stargazers_count")

@@ -6,19 +6,27 @@ import com.shopapotheke.githubpoprepo.application.port.in.GithubService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.validator.GenericValidator;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.shopapotheke.githubpoprepo.adapter.in.rest.InputConstants.DATE_PATTERN;
+import static com.shopapotheke.githubpoprepo.adapter.in.rest.InputConstants.TOP_VALUES;
+
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class GithubController {
 
+    public static final String DEFAULT_DATE = "2023-01-01";
+    public static final String DEFAULT_LANGUAGE = "java";
+    public static final String DEFAULT_TOP = "10";
     private final GithubService githubService;
 
     @GetMapping
-    public GithubResponse getPopularRepos(@RequestParam String date,
-                                          @RequestParam String language,
-                                          @RequestParam int top) {
+    public GithubResponse getPopularRepos(@RequestParam(defaultValue = DEFAULT_DATE) String date,
+                                          @RequestParam(defaultValue = DEFAULT_LANGUAGE) String language,
+                                          @RequestParam(defaultValue = DEFAULT_TOP) int top) {
         validateDate(date);
         validateTop(top);
         GithubService.Arguments arguments = new GithubService.Arguments(date, language, top);
@@ -26,14 +34,14 @@ public class GithubController {
     }
 
     private void validateTop(int top) {
-        if (!(top == 10 || top == 50 || top == 100)) {
+        if (!TOP_VALUES.contains(top)) {
             throw new InputException(
                     "Top value not allowed. Possible values: %s".formatted("10, 50, 100"));
         }
     }
 
     private void validateDate(String date) {
-        if (!GenericValidator.isDate(date, "yyyy-MM-dd", true)) {
+        if (!GenericValidator.isDate(date, DATE_PATTERN, true)) {
             throw new InputException(
                     "Date query param is not valid, is should follow the format: %s".formatted("yyyy-MM-dd"));
         }
