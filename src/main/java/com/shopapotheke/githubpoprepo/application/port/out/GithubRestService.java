@@ -1,9 +1,8 @@
 package com.shopapotheke.githubpoprepo.application.port.out;
 
-import com.shopapotheke.githubpoprepo.adapter.in.rest.dto.GithubResponse;
-import reactor.core.publisher.Mono;
+import com.shopapotheke.githubpoprepo.adapter.out.rest.dto.GithubResponse;
 
 public interface GithubRestService {
 
-    public Mono<GithubResponse> getPopRepos();
+    GithubResponse getPopRepos();
 }

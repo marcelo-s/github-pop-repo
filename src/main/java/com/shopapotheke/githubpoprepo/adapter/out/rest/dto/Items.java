@@ -1,4 +1,4 @@
-package com.shopapotheke.githubpoprepo.adapter.in.rest.dto;
+package com.shopapotheke.githubpoprepo.adapter.out.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
