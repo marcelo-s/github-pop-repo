@@ -1,5 +1,6 @@
 package com.shopapotheke.githubpoprepo.adapter.out.rest;
 
+import com.shopapotheke.githubpoprepo.application.port.in.GithubService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
@@ -9,11 +10,12 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class QueryParamBuilder {
 
-    public String buildUriParams(String date, String language) {
+    public String buildUriParams(GithubService.Arguments arguments) {
         StringBuilder queryParams = new StringBuilder();
-        queryParams.append(buildGithubQuery(date, language));
+        queryParams.append(buildGithubQuery(arguments.date(), arguments.language()));
         queryParams.append("&sort=stars");
         queryParams.append("&order=desc");
+        queryParams.append("&per_page=").append(arguments.top());
         return queryParams.toString();
     }
 
