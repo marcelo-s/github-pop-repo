@@ -2,7 +2,7 @@ package com.shopapotheke.githubpoprepo.application.port.out;
 
 import com.shopapotheke.githubpoprepo.adapter.out.rest.dto.GithubResponse;
 
-public interface GithubRestService {
+public interface GithubRestClient {
 
-    GithubResponse getPopRepos();
+    GithubResponse fetchPopularRepositories(String date, String language);
 }

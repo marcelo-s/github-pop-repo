@@ -4,5 +4,5 @@ import com.shopapotheke.githubpoprepo.adapter.out.rest.dto.GithubResponse;
 
 public interface GithubService {
 
-    GithubResponse getPopRepos();
+    GithubResponse getPopularRepositories(String date, String language);
 }

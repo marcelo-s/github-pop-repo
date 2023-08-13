@@ -2,7 +2,7 @@ package com.shopapotheke.githubpoprepo.application.service;
 
 import com.shopapotheke.githubpoprepo.adapter.out.rest.dto.GithubResponse;
 import com.shopapotheke.githubpoprepo.application.port.in.GithubService;
-import com.shopapotheke.githubpoprepo.application.port.out.GithubRestService;
+import com.shopapotheke.githubpoprepo.application.port.out.GithubRestClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GithubServiceImpl implements GithubService {
 
-    private final GithubRestService githubRestService;
+    private final GithubRestClient githubRestClient;
 
     @Override
-    public GithubResponse getPopRepos() {
-        return githubRestService.getPopRepos();
+    public GithubResponse getPopularRepositories(String date, String language) {
+        return githubRestClient.fetchPopularRepositories(date, language);
     }
 }

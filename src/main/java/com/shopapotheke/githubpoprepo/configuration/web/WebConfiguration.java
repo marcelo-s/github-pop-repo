@@ -7,8 +7,6 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
@@ -16,11 +14,16 @@ import java.time.Duration;
 @Configuration
 public class WebConfiguration {
 
+    public static final int MAX_TOTAL_CONNECTIONS = 1000;
+    public static final int MAX_PER_ROUTE_CONNECTIONS = 1000;
+    public static final int CONNECT_TIMEOUT = 1000;
+    public static final int READ_TIMEOUT = 5000;
+
     @Bean
     public PoolingHttpClientConnectionManager poolingHttpClientConnectionManager() {
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
-        connectionManager.setMaxTotal(1000);
-        connectionManager.setDefaultMaxPerRoute(1000);
+        connectionManager.setMaxTotal(MAX_TOTAL_CONNECTIONS);
+        connectionManager.setDefaultMaxPerRoute(MAX_PER_ROUTE_CONNECTIONS);
 
         return connectionManager;
     }
@@ -35,10 +38,8 @@ public class WebConfiguration {
     @Bean
     public RestTemplate restTemplate(CloseableHttpClient httpClient) {
         return new RestTemplateBuilder()
-                .setConnectTimeout(Duration.ofMillis(1000))
-                .setReadTimeout(Duration.ofMillis(5000))
-                .messageConverters(new StringHttpMessageConverter(),
-                                   new MappingJackson2HttpMessageConverter())
+                .setConnectTimeout(Duration.ofMillis(CONNECT_TIMEOUT))
+                .setReadTimeout(Duration.ofMillis(READ_TIMEOUT))
                 .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(httpClient))
                 .build();
     }

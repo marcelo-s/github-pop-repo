@@ -29,7 +29,10 @@ dependencies {
     // Spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+
+    //Apache
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    implementation 'commons-validator:commons-validator:1.7'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'
