@@ -3,7 +3,7 @@ package com.shopapotheke.githubpoprepo.adapter.out.rest;
 import com.shopapotheke.githubpoprepo.adapter.in.exception.RestException;
 import com.shopapotheke.githubpoprepo.adapter.out.rest.dto.GithubResponse;
 import com.shopapotheke.githubpoprepo.adapter.out.rest.service.RestService;
-import com.shopapotheke.githubpoprepo.application.port.in.GithubService;
+import com.shopapotheke.githubpoprepo.application.port.in.GetGithubPopularRepositories;
 import com.shopapotheke.githubpoprepo.application.port.out.GithubClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,17 +24,17 @@ public class GithubRestClient implements GithubClient {
     private final RestService restService;
 
     @Override
-    public GithubResponse fetchPopularRepositories(GithubService.Arguments arguments) {
+    public GithubResponse fetchPopularRepositories(GetGithubPopularRepositories.Arguments arguments) {
         try {
             return restService.executeRestCall(() -> fetchPopularReposFromGithub(arguments));
         } catch (Exception e) {
-            String errorMessage = "RestClientException during call to Github";
+            String errorMessage = "Rest Exception during call to Github";
             log.error(errorMessage, e);
             throw new RestException(errorMessage, e);
         }
     }
 
-    public GithubResponse fetchPopularReposFromGithub(GithubService.Arguments arguments) {
+    public GithubResponse fetchPopularReposFromGithub(GetGithubPopularRepositories.Arguments arguments) {
         String urlWithParams = buildUrlWithQueryParams(arguments);
         ResponseEntity<GithubResponse> response =
                 restTemplate.getForEntity(
@@ -44,7 +44,7 @@ public class GithubRestClient implements GithubClient {
         return response.getBody();
     }
 
-    private String buildUrlWithQueryParams(GithubService.Arguments arguments) {
+    private String buildUrlWithQueryParams(GetGithubPopularRepositories.Arguments arguments) {
         String queryParams = queryParamBuilder.buildUriParams(arguments);
         return BASE_GITHUB_URL + "?" + queryParams;
     }

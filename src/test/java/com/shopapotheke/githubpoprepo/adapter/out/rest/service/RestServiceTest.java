@@ -1,7 +1,7 @@
 package com.shopapotheke.githubpoprepo.adapter.out.rest.service;
 
 import com.shopapotheke.githubpoprepo.adapter.out.rest.GithubRestClient;
-import com.shopapotheke.githubpoprepo.application.port.in.GithubService;
+import com.shopapotheke.githubpoprepo.application.port.in.GetGithubPopularRepositories;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
@@ -29,7 +29,7 @@ class RestServiceTest {
     @Test
     void shouldRetry() {
         //given
-        GithubService.Arguments dummyArguments = new GithubService.Arguments("2000-01-01", "Java", 10);
+        GetGithubPopularRepositories.Arguments dummyArguments = new GetGithubPopularRepositories.Arguments("2000-01-01", "Java", 10);
         String exceptionMessage = "Rest exception";
         given(githubRestClient.fetchPopularReposFromGithub(dummyArguments))
                 .willThrow(new RuntimeException(exceptionMessage));
@@ -56,7 +56,7 @@ class RestServiceTest {
     @Test
     void shouldOpenCircuitBreaker() {
         //given
-        GithubService.Arguments dummyArguments = new GithubService.Arguments("2000-01-01", "Java", 10);
+        GetGithubPopularRepositories.Arguments dummyArguments = new GetGithubPopularRepositories.Arguments("2000-01-01", "Java", 10);
 
         given(githubRestClient.fetchPopularReposFromGithub(dummyArguments))
                 .willThrow(new RuntimeException("testing me"));

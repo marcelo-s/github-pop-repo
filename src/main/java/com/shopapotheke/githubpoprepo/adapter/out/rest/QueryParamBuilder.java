@@ -1,8 +1,7 @@
 package com.shopapotheke.githubpoprepo.adapter.out.rest;
 
-import com.shopapotheke.githubpoprepo.application.port.in.GithubService;
+import com.shopapotheke.githubpoprepo.application.port.in.GetGithubPopularRepositories;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class QueryParamBuilder {
 
-    public String buildUriParams(GithubService.Arguments arguments) {
+    public String buildUriParams(GetGithubPopularRepositories.Arguments arguments) {
         StringBuilder queryParams = new StringBuilder();
         queryParams.append(buildGithubQuery(arguments.date(), arguments.language()));
         queryParams.append("&sort=stars");

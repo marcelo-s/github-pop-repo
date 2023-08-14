@@ -1,14 +1,14 @@
-package com.shopapotheke.githubpoprepo.application.service;
+package com.shopapotheke.githubpoprepo.application.usecase;
 
 import com.shopapotheke.githubpoprepo.adapter.out.rest.dto.GithubResponse;
-import com.shopapotheke.githubpoprepo.application.port.in.GithubService;
+import com.shopapotheke.githubpoprepo.application.port.in.GetGithubPopularRepositories;
 import com.shopapotheke.githubpoprepo.application.port.out.GithubClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GithubServiceImpl implements GithubService {
+public class GetGithubPopularRepositoriesUseCase implements GetGithubPopularRepositories {
 
     private final GithubClient githubRestClient;
 

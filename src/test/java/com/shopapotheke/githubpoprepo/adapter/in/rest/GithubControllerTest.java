@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopapotheke.githubpoprepo.adapter.out.rest.dto.GithubResponse;
 import com.shopapotheke.githubpoprepo.adapter.out.rest.dto.Item;
-import com.shopapotheke.githubpoprepo.application.port.in.GithubService;
+import com.shopapotheke.githubpoprepo.application.port.in.GetGithubPopularRepositories;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,7 +36,7 @@ public class GithubControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private GithubService githubService;
+    private GetGithubPopularRepositories getGithubPopularRepositories;
 
     @Test
     public void shouldReturnPopularRepos() throws Exception {
@@ -59,7 +59,7 @@ public class GithubControllerTest {
                                   creationDate);
         GithubResponse mockResponse = new GithubResponse(totalCount, List.of(firstItem));
 
-        given(githubService.getPopularRepositories(any(GithubService.Arguments.class)))
+        given(getGithubPopularRepositories.getPopularRepositories(any(GetGithubPopularRepositories.Arguments.class)))
                 .willReturn(mockResponse);
 
         //when
@@ -116,7 +116,7 @@ public class GithubControllerTest {
     @Test
     public void shouldReturnServerErrorInCaseOfUnknownException() throws Exception {
         //given
-        given(githubService.getPopularRepositories(any(GithubService.Arguments.class)))
+        given(getGithubPopularRepositories.getPopularRepositories(any(GetGithubPopularRepositories.Arguments.class)))
                 .willThrow(new RuntimeException("Some exception"));
 
         //when

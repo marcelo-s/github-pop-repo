@@ -3,7 +3,7 @@ package com.shopapotheke.githubpoprepo.adapter.out.rest;
 import com.shopapotheke.githubpoprepo.adapter.in.exception.RestException;
 import com.shopapotheke.githubpoprepo.adapter.out.rest.dto.GithubResponse;
 import com.shopapotheke.githubpoprepo.adapter.out.rest.service.RestService;
-import com.shopapotheke.githubpoprepo.application.port.in.GithubService;
+import com.shopapotheke.githubpoprepo.application.port.in.GetGithubPopularRepositories;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,7 +38,7 @@ class GithubRestClientTest {
     @Test
     void shouldCallGithubAndReturnResponse() {
         //given
-        GithubService.Arguments arguments = new GithubService.Arguments("2000-01-01", "Java", 10);
+        GetGithubPopularRepositories.Arguments arguments = new GetGithubPopularRepositories.Arguments("2000-01-01", "Java", 10);
         GithubResponse mockResponse = new GithubResponse(10, Collections.emptyList());
         given(restTemplate.getForEntity(anyString(), eq(GithubResponse.class)))
                 .willReturn(ResponseEntity.ok(mockResponse));
@@ -54,7 +54,7 @@ class GithubRestClientTest {
     @Test
     void shouldThrowExceptionWhenCallToGithubReturnsException() {
         //given
-        GithubService.Arguments arguments = new GithubService.Arguments("2000-01-01", "Java", 10);
+        GetGithubPopularRepositories.Arguments arguments = new GetGithubPopularRepositories.Arguments("2000-01-01", "Java", 10);
         given(restTemplate.getForEntity(anyString(), eq(GithubResponse.class)))
                 .willThrow(new RuntimeException("Some exception"));
 
@@ -66,6 +66,6 @@ class GithubRestClientTest {
         //then
         assertThat(thrown)
                 .isInstanceOf(RestException.class)
-                .hasMessageContaining("RestClientException during call to Github");
+                .hasMessageContaining("Rest Exception during call to Github");
     }
 }

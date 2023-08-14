@@ -15,13 +15,13 @@ import java.time.Duration;
 @Configuration
 public class WebConfiguration {
 
-    @Value("${retry.max_total_connections}")
+    @Value("${web-config.max_total_connections}")
     public int MAX_TOTAL_CONNECTIONS;
-    @Value("${retry.max_per_route_connections}")
+    @Value("${web-config.max_per_route_connections}")
     public int MAX_PER_ROUTE_CONNECTIONS = 1000;
-    @Value("${retry.connect_timeout}")
+    @Value("${web-config.connect_timeout}")
     public int CONNECT_TIMEOUT = 1000;
-    @Value("${retry.read_timeout}")
+    @Value("${web-config.read_timeout}")
     public int READ_TIMEOUT = 5000;
 
     @Bean

@@ -1,4 +1,4 @@
-retry:
+web-config:
    max_total_connections: 1000
    max_per_route_connections: 1000
    connect_timeout: 1000
