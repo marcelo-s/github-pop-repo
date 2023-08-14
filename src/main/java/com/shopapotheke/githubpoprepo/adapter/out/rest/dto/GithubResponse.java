@@ -8,5 +8,5 @@ public record GithubResponse(
         @JsonProperty("total_count")
         Integer totalCount,
         @JsonProperty("items")
-        List<Items> items) {
+        List<Item> items) {
 }

@@ -15,7 +15,7 @@ import static com.shopapotheke.githubpoprepo.adapter.in.rest.InputConstants.TOP_
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/pop")
 public class GithubController {
 
     public static final String DEFAULT_DATE = "2023-01-01";

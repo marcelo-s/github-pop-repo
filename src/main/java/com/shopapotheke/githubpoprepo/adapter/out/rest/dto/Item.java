@@ -2,7 +2,7 @@ package com.shopapotheke.githubpoprepo.adapter.out.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record Items(
+public record Item(
         @JsonProperty("id")
         String id,
         @JsonProperty("name")
