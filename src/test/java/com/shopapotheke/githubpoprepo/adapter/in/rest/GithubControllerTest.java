@@ -39,7 +39,7 @@ public class GithubControllerTest {
     private GithubService githubService;
 
     @Test
-    public void testGetPopularRepos() throws Exception {
+    public void shouldReturnPopularRepos() throws Exception {
         //given
         int totalCount = 11043779;
         String id = "47997753";
@@ -79,7 +79,7 @@ public class GithubControllerTest {
     }
 
     @Test
-    public void testInvalidDate() throws Exception {
+    public void shouldReturnBadRequestWhenDataIsInvalid() throws Exception {
         //given
         String invalidDate = "invalid-date";
 
@@ -97,7 +97,7 @@ public class GithubControllerTest {
     }
 
     @Test
-    public void testInvalidTopValue() throws Exception {
+    public void shouldReturnBadRequestWhenTopIsInvalid() throws Exception {
         //given
         String invalidTopValue = "99";
 
@@ -114,7 +114,7 @@ public class GithubControllerTest {
     }
 
     @Test
-    public void testGenericException() throws Exception {
+    public void shouldReturnServerErrorInCaseOfUnknownException() throws Exception {
         //given
         given(githubService.getPopularRepositories(any(GithubService.Arguments.class)))
                 .willThrow(new RuntimeException("Some exception"));

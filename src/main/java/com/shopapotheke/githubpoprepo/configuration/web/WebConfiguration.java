@@ -3,6 +3,7 @@ package com.shopapotheke.githubpoprepo.configuration.web;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +15,14 @@ import java.time.Duration;
 @Configuration
 public class WebConfiguration {
 
-    public static final int MAX_TOTAL_CONNECTIONS = 1000;
-    public static final int MAX_PER_ROUTE_CONNECTIONS = 1000;
-    public static final int CONNECT_TIMEOUT = 1000;
-    public static final int READ_TIMEOUT = 5000;
+    @Value("${retry.max_total_connections}")
+    public int MAX_TOTAL_CONNECTIONS;
+    @Value("${retry.max_per_route_connections}")
+    public int MAX_PER_ROUTE_CONNECTIONS = 1000;
+    @Value("${retry.connect_timeout}")
+    public int CONNECT_TIMEOUT = 1000;
+    @Value("${retry.read_timeout}")
+    public int READ_TIMEOUT = 5000;
 
     @Bean
     public PoolingHttpClientConnectionManager poolingHttpClientConnectionManager() {
