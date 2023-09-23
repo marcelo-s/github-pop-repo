@@ -48,6 +48,8 @@ class GithubRestClientTest {
 
         //then
         assertThat(actual).isEqualTo(mockResponse);
+        String expectedUrl = "https://api.github.com/search/repositories?q=created:>2000-01-01 language:Java&sort=stars&order=desc&per_page=10";
+        then(restTemplate).should().getForEntity(expectedUrl, GithubResponse.class);
         then(restTemplate).shouldHaveNoMoreInteractions();
     }
 
